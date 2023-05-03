@@ -1,0 +1,1 @@
+# get-page-screenshot-api
