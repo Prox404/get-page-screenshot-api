@@ -11,7 +11,7 @@ app.get('/', (req, res) => {
 
 app.get('/screenshot', async (req, res) => {
     const url = req.query.url;
-    const browser = await chromium.puppeteer.launch({
+    const browser = await puppeteer.launch({
       args: chromium.args,
       defaultViewport: chromium.defaultViewport,
       executablePath: await chromium.executablePath,
