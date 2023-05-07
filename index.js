@@ -1,5 +1,6 @@
 const express = require('express');
 const puppeteer = require('puppeteer');
+const chromium = require('chrome-aws-lambda');
 const app = express();
 
 app.get('/', (req, res) => {
@@ -10,7 +11,13 @@ app.get('/', (req, res) => {
 
 app.get('/screenshot', async (req, res) => {
     const url = req.query.url;
-    const browser = await puppeteer.launch({ headless: "new" });
+    const browser = await chromium.puppeteer.launch({
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
+    });
     const page = await browser.newPage();
     await page.goto(url);
     const screenshot = await page.screenshot();
